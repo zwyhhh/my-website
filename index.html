@@ -17,21 +17,21 @@
         }
 
         #timeline {
-    width: 90%; 
-    height: 20px;
-    background-color: #E0E0E0;  /* 浅色背景 */
-    margin: 50px auto;
-    position: relative;
-}
+            width: 90%; 
+            height: 20px;
+            background-color: #E0E0E0;  /* 浅色背景 */
+            margin: 50px auto;
+            position: relative;
+        }
 
-.dot { 
-    position: absolute;
-    height: 5px;  /* 更大的点 */
-    width: 5px;   /* 更大的点 */
-    background-color: black;
-    border-radius: 50%;  /* 使点呈圆形 */
-    transform: translateY(-50%);  /* 垂直居中 */
-}
+        .dot { 
+            position: absolute;
+            height: 5px;  /* 更大的点 */
+            width: 5px;   /* 更大的点 */
+            background-color: black;
+            border-radius: 50%;  /* 使点呈圆形 */
+            transform: translateY(-50%);  /* 垂直居中 */
+        }
 
     </style>
 </head>
@@ -44,33 +44,33 @@
         const imagePreview = document.getElementById('image-preview');
 
         // 在时间轴上生成点
-for (let i = 0; i <= 1776; i++) {
-    const dot = document.createElement('div');
-    dot.className = 'dot';
-    dot.style.left = `${(i / 1776) * 100}%`; 
-    dot.style.top = '50%';  /* 垂直居中 */
-    timeline.appendChild(dot);
-}
+        for (let i = 0; i <= 1776; i++) {
+            const dot = document.createElement('div');
+            dot.className = 'dot';
+            dot.style.left = `${(i / 1776) * 100}%`; 
+            dot.style.top = '50%';  /* 垂直居中 */
+            timeline.appendChild(dot);
+        }
 
 
         timeline.addEventListener('mousemove', (e) => {
-    	const rect = timeline.getBoundingClientRect();
-    	const mouseX = e.clientX - rect.left;
-    	const percentage = mouseX / rect.width;
+        	const rect = timeline.getBoundingClientRect();
+        	const mouseX = e.clientX - rect.left;
+        	const percentage = mouseX / rect.width;
+        
+        	console.log("Percentage:", percentage);
+        
+        	let timestamp = Math.floor(percentage * 1777);
+        	console.log("Timestamp:", timestamp);
+        
+        	// 确保时间戳在0到1776之间
+        	timestamp = Math.max(0, Math.min(timestamp, 1776));
     
-    	console.log("Percentage:", percentage);
-    
-    	let timestamp = Math.floor(percentage * 1777);
-    	console.log("Timestamp:", timestamp);
-    
-    	// 确保时间戳在0到1776之间
-    	timestamp = Math.max(0, Math.min(timestamp, 1776));
-
-    	const imageUrl = `/${timestamp}.png`;
-    	console.log("Image URL:", imageUrl);
-    
-   	imagePreview.style.backgroundImage = `url(${imageUrl})`;
-});
+        	const imageUrl = `/my-website/${timestamp}.png`;
+        	console.log("Image URL:", imageUrl);
+        
+           	imagePreview.style.backgroundImage = `url(${imageUrl})`;
+        });
 
 
     </script>
