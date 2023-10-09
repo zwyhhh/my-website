@@ -6,73 +6,103 @@
     <title>时间轴图片预览</title>
     <style>
 
-        #image-preview {
-            width: 500px;  
-            height: 500px;
+        #timeline {
+        width: 100%; 
+        height: 20px;
+        background-color: #E0E0E0;  /* 浅色背景 */
+        margin: 50px auto;
+        position: relative;
+        }
+
+        #image-container {
+            display: flex; /* 使用flex布局将图片并排显示 */
+            justify-content: center; /* 水平居中 */
+            margin: 20px auto;
+        }
+        
+        .image-preview {
+            width: 180px;  /* 根据页面宽度和间距调整每张图片的宽度 */
+            height: 180px;
             border: 1px solid black;
-            margin: 50px auto;
+            margin: 0 10px; /* 左右间距为10px */
             background-size: contain;
             background-repeat: no-repeat;
             background-position: center;
+            position: relative; /* 使内部的绝对定位元素相对于此容器定位 */
+            padding-top: 30px; /* 为文本提供额外的空间，可以根据需要调整 */
+            margin-top: 30px; /* 与padding-top匹配，确保图片与时间轴之间的距离不变 */
         }
 
-        #timeline {
-            width: 90%; 
-            height: 20px;
-            background-color: #E0E0E0;  /* 浅色背景 */
-            margin: 50px auto;
-            position: relative;
-        }
+.image-text {
+    position: absolute;
+    top: 0; /* 将文本置于容器的顶部 */
+    left: 50%; /* 将文本水平居中于图片 */
+    transform: translateX(-50%); /* 使文本完全居中 */
+    color: white; /* 文本颜色 */
+    font-weight: bold; /* 文本加粗 */
+    background-color: rgba(0, 0, 0, 0.7); /* 背景为半透明的黑色，以确保文本可读 */
+    padding: 2px 5px; /* 为文本添加一些内边距 */
+    border-radius: 3px; /* 为文本背景添加圆角 */
+    white-space: nowrap; /* 防止文本折行 */
+}
 
-        .dot { 
-            position: absolute;
-            height: 5px;  /* 更大的点 */
-            width: 5px;   /* 更大的点 */
-            background-color: black;
-            border-radius: 50%;  /* 使点呈圆形 */
-            transform: translateY(-50%);  /* 垂直居中 */
-        }
+
+
+.marker-line {
+    position: absolute;
+    height: 100%;  /* 与时间轴等高 */
+    width: 2px;    /* 竖线的宽度 */
+    background-color: red;  /* 使用红色来标记 */
+    transform: translateY(0);  /* 不需要垂直居中，因为它占据了整个高度 */
+}
 
     </style>
 </head>
 <body>
     <div id="timeline"></div>
-    <div id="image-preview"></div>
+    <div id="image-container">
+        <div class="image-preview" id="image-preview1"><span class="image-text">线棒1</span></div>
+        <div class="image-preview" id="image-preview2"><span class="image-text">线棒2</span></div>
+        <div class="image-preview" id="image-preview3"><span class="image-text">线棒3</span></div>
+        <div class="image-preview" id="image-preview4"><span class="image-text">线棒4</span></div>
+        <div class="image-preview" id="image-preview5"><span class="image-text">线棒5</span></div>
+    </div>
 
     <script>
         const timeline = document.getElementById('timeline');
-        const imagePreview = document.getElementById('image-preview');
+        const imagePreviews = [
+            document.getElementById('image-preview1'),
+            document.getElementById('image-preview2'),
+            document.getElementById('image-preview3'),
+            document.getElementById('image-preview4'),
+            document.getElementById('image-preview5')
+        ];
 
-        // 在时间轴上生成点
-        for (let i = 0; i <= 1776; i++) {
-            const dot = document.createElement('div');
-            dot.className = 'dot';
-            dot.style.left = `${(i / 1776) * 100}%`; 
-            dot.style.top = '50%';  /* 垂直居中 */
-            timeline.appendChild(dot);
-        }
+        const folderSizes = [3405, 3393, 5427, 5427, 1777];  // 为每个文件夹设置具体的图片数量
 
+// 在时间轴上为每个文件夹的最后一张图片添加标记点
+folderSizes.forEach(endPoint => {
+    const markerLine = document.createElement('div');
+    markerLine.className = 'marker-line';
+    markerLine.style.left = `${(endPoint / 5427) * 100}%`;
+    timeline.appendChild(markerLine);
+});
 
         timeline.addEventListener('mousemove', (e) => {
-        	const rect = timeline.getBoundingClientRect();
-        	const mouseX = e.clientX - rect.left;
-        	const percentage = mouseX / rect.width;
+            const rect = timeline.getBoundingClientRect();
+            const mouseX = e.clientX - rect.left;
+            const percentage = mouseX / rect.width;
+            const timestamp = Math.floor(percentage * 5427);  // 最大长度为5427
         
-        	console.log("Percentage:", percentage);
-        
-        	let timestamp = Math.floor(percentage * 1777);
-        	console.log("Timestamp:", timestamp);
-        
-        	// 确保时间戳在0到1776之间
-        	timestamp = Math.max(0, Math.min(timestamp, 1776));
-    
-        	const imageUrl = `/my-website/ssid5/${timestamp}.png`;
-        	console.log("Image URL:", imageUrl);
-        
-           	imagePreview.style.backgroundImage = `url(${imageUrl})`;
+            for (let i = 0; i < imagePreviews.length; i++) {
+                if (timestamp < folderSizes[i]) {
+                    const imageUrl = `/mywebsite/ssid${i+1}/${timestamp}.png`;
+                    imagePreviews[i].style.backgroundImage = `url(${imageUrl})`;
+                } else {
+                    imagePreviews[i].style.backgroundImage = '';  // 如果超出文件夹中的图片数量，则不显示图片
+                }
+            }
         });
-
-
     </script>
 </body>
 </html>
