@@ -32,6 +32,11 @@
 	    justify-content: center;
 	    width: 100%;
 	}
+	#image-container {
+	    display: flex; /* 使用flex布局将图片并排显示 */
+	    justify-content: center; /* 水平居中 */
+	    margin: 20px auto;
+	}
         .image-preview {
             width: 180px;  /* 根据页面宽度和间距调整每张图片的宽度 */
             height: 180px;
@@ -66,6 +71,14 @@
     </style>
 </head>
 <body>
+	<div id="timeline"></div>
+	<div id="image-container">
+	    <div class="image-preview" id="image-preview1"></div>
+	    <div class="image-preview" id="image-preview2"></div>
+	    <div class="image-preview" id="image-preview3"></div>
+	    <div class="image-preview" id="image-preview4"></div>
+	    <div class="image-preview" id="image-preview5"></div>
+	</div>
 	<div class="timeline-container">
 	    <img class="timeline-image" id="timeline1" src="/my-website/jiesun1.png" alt="Timeline Image 1">
 	    <div class="double-image-container">
@@ -103,6 +116,14 @@
 	</div>
     
 <script>
+	const timeline = document.getElementById('timeline');
+	const imagePreviews = [
+	    document.getElementById('image-preview1'),
+	    document.getElementById('image-preview2'),
+	    document.getElementById('image-preview3'),
+	    document.getElementById('image-preview4'),
+	    document.getElementById('image-preview5')
+	];
         const timelines = [
             document.getElementById('timeline1'),
             document.getElementById('timeline2'),
@@ -130,13 +151,23 @@
 	// 找到folderSizes中的最大值
 	const maxFolderSize = Math.max(...folderSizes);
 
+	timeline.addEventListener('mousemove', (e) => {
+	    const rect = timeline.getBoundingClientRect();
+	    const mouseX = e.clientX - rect.left;
+	    const percentage = mouseX / rect.width;
+	    const timestamp = Math.floor(percentage * 5427);  // 最大长度为5427
+	
+	    for (let i = 0; i < imagePreviews.length; i++) {
+	        if (timestamp < folderSizes[i]) {
+	            const imageUrl = `/my-website/ssid${i+1}/${timestamp}.png`;
+	            imagePreviews[i].style.backgroundImage = `url(${imageUrl})`;
+	        } else {
+	            imagePreviews[i].style.backgroundImage = '';  // 如果超出文件夹中的图片数量，则不显示图片
+	        }
+	    }
+	});
+	
         timelines.forEach((timeline, index) => {
-		// 根据当前文件夹的大小和最大文件夹的大小计算宽度百分比
-	    	const widthPercentage = (folderSizes[index] / maxFolderSize) * 100;
-
-		    // 为时间轴设置动态宽度
-		    //timeline.style.width = `${widthPercentage}%`;
-		    //timeline.classList.add('dynamic-width'); // 添加动态宽度类以应用过渡效果
 	    	timeline.addEventListener('mousemove', (e) => {
 			const rect = timeline.getBoundingClientRect();
 			const mouseX = e.clientX - rect.left;
