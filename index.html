@@ -5,33 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>时间轴图片预览</title>
     <style>
-.timeline-container {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    width: 100%;
-}
+	.timeline-container {
+	    display: flex;
+	    flex-direction: column;
+	    align-items: flex-start;
+	    width: 100%;
+	}
         .timeline {
             width: 100%; 
             height: 30px;
             background-color: #E0E0E0;  /* 浅色背景 */
             margin: 10px 0;
             position: relative;
-align-self: flex-start;  /* 时间轴左对齐 */
-        }
+	align-self: flex-start;  /* 时间轴左对齐 */
+	}
 
-.timeline-image {
-    width: 100%; 
-    height: 200px; 
-    margin: 10px 0;  
-    cursor: pointer;
-}
+	.timeline-image {
+	    width: 100%; 
+	    height: 200px; 
+	    margin: 10px 0;  
+	    cursor: pointer;
+	}
 
-.double-image-container {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-}
+	.double-image-container {
+	    display: flex;
+	    justify-content: center;
+	    width: 100%;
+	}
         .image-preview {
             width: 180px;  /* 根据页面宽度和间距调整每张图片的宽度 */
             height: 180px;
@@ -43,67 +43,66 @@ align-self: flex-start;  /* 时间轴左对齐 */
             position: relative; /* 使内部的绝对定位元素相对于此容器定位 */
             padding-top: 30px; /* 为文本提供额外的空间，可以根据需要调整 */
             margin-top: 30px; /* 与padding-top匹配，确保图片与时间轴之间的距离不变 */
-align-self: center;  /* 图片居中 */
-
-        }
+	align-self: center;  /* 图片居中 */
+	}
 
         .image-text {
-    position: absolute;
-    top: 0; /* 将文本置于容器的顶部 */
-    left: 50%; /* 将文本水平居中于图片 */
-    transform: translateX(-50%); /* 使文本完全居中 */
-    color: white; /* 文本颜色 */
-    font-weight: bold; /* 文本加粗 */
-    background-color: rgba(0, 0, 0, 0.7); /* 背景为半透明的黑色，以确保文本可读 */
-    padding: 2px 5px; /* 为文本添加一些内边距 */
-    border-radius: 3px; /* 为文本背景添加圆角 */
-    white-space: nowrap; /* 防止文本折行 */
-}
+	    position: absolute;
+	    top: 0; /* 将文本置于容器的顶部 */
+	    left: 50%; /* 将文本水平居中于图片 */
+	    transform: translateX(-50%); /* 使文本完全居中 */
+	    color: white; /* 文本颜色 */
+	    font-weight: bold; /* 文本加粗 */
+	    background-color: rgba(0, 0, 0, 0.7); /* 背景为半透明的黑色，以确保文本可读 */
+	    padding: 2px 5px; /* 为文本添加一些内边距 */
+	    border-radius: 3px; /* 为文本背景添加圆角 */
+	    white-space: nowrap; /* 防止文本折行 */
+	}
 
-.dynamic-width {
-        transition: width 0.3s; /* 添加过渡效果，使时间轴宽度变化更加平滑 */
-    }
+	.dynamic-width {
+		transition: width 0.3s; /* 添加过渡效果，使时间轴宽度变化更加平滑 */
+	}
 
     </style>
 </head>
 <body>
-<div class="timeline-container">
-    <img class="timeline-image" id="timeline1" src="D:\mywebsite\jiesun1.png" alt="Timeline Image 1">
-    <div class="double-image-container">
-        <div class="image-preview" id="image-preview1-1"><span class="image-text">线棒1</span></div>
-        <div class="image-preview" id="image-preview1-2"><span class="image-text"></span></div>
-    </div>
-</div>
-<div class="timeline-container">
-    <img class="timeline-image" id="timeline2" src="D:\mywebsite\jiesun2.png" alt="Timeline Image 2">
-    <div class="double-image-container">
-        <div class="image-preview" id="image-preview2-1"><span class="image-text">线棒2</span></div>
-        <div class="image-preview" id="image-preview2-2"><span class="image-text"></span></div>
-    </div>
-</div>
-<div class="timeline-container">
-    <img class="timeline-image" id="timeline3" src="D:\mywebsite\jiesun3.png" alt="Timeline Image 3">
-    <div class="double-image-container">
-        <div class="image-preview" id="image-preview3-1"><span class="image-text">线棒3</span></div>
-        <div class="image-preview" id="image-preview3-2"><span class="image-text"></span></div>
-    </div>
-</div>
-<div class="timeline-container">
-    <img class="timeline-image" id="timeline4" src="D:\mywebsite\jiesun4.png" alt="Timeline Image 4">
-    <div class="double-image-container">
-        <div class="image-preview" id="image-preview4-1"><span class="image-text">线棒4</span></div>
-        <div class="image-preview" id="image-preview4-2"><span class="image-text"></span></div>
-    </div>
-</div>
-<div class="timeline-container">
-    <img class="timeline-image" id="timeline5" src="D:\mywebsite\jiesun5.png" alt="Timeline Image 5">
-    <div class="double-image-container">
-        <div class="image-preview" id="image-preview5-1"><span class="image-text">线棒5</span></div>
-        <div class="image-preview" id="image-preview5-2"><span class="image-text"></span></div>
-    </div>
-</div>
+	<div class="timeline-container">
+	    <img class="timeline-image" id="timeline1" src="D:\mywebsite\jiesun1.png" alt="Timeline Image 1">
+	    <div class="double-image-container">
+		<div class="image-preview" id="image-preview1-1"><span class="image-text">线棒1</span></div>
+		<div class="image-preview" id="image-preview1-2"><span class="image-text"></span></div>
+	    </div>
+	</div>
+	<div class="timeline-container">
+	    <img class="timeline-image" id="timeline2" src="D:\mywebsite\jiesun2.png" alt="Timeline Image 2">
+	    <div class="double-image-container">
+		<div class="image-preview" id="image-preview2-1"><span class="image-text">线棒2</span></div>
+		<div class="image-preview" id="image-preview2-2"><span class="image-text"></span></div>
+	    </div>
+	</div>
+	<div class="timeline-container">
+	    <img class="timeline-image" id="timeline3" src="D:\mywebsite\jiesun3.png" alt="Timeline Image 3">
+	    <div class="double-image-container">
+		<div class="image-preview" id="image-preview3-1"><span class="image-text">线棒3</span></div>
+		<div class="image-preview" id="image-preview3-2"><span class="image-text"></span></div>
+	    </div>
+	</div>
+	<div class="timeline-container">
+	    <img class="timeline-image" id="timeline4" src="D:\mywebsite\jiesun4.png" alt="Timeline Image 4">
+	    <div class="double-image-container">
+		<div class="image-preview" id="image-preview4-1"><span class="image-text">线棒4</span></div>
+		<div class="image-preview" id="image-preview4-2"><span class="image-text"></span></div>
+	    </div>
+	</div>
+	<div class="timeline-container">
+	    <img class="timeline-image" id="timeline5" src="D:\mywebsite\jiesun5.png" alt="Timeline Image 5">
+	    <div class="double-image-container">
+		<div class="image-preview" id="image-preview5-1"><span class="image-text">线棒5</span></div>
+		<div class="image-preview" id="image-preview5-2"><span class="image-text"></span></div>
+	    </div>
+	</div>
     
-    <script>
+<script>
         const timelines = [
             document.getElementById('timeline1'),
             document.getElementById('timeline2'),
@@ -118,7 +117,7 @@ align-self: center;  /* 图片居中 */
             document.getElementById('image-preview4-1'),
             document.getElementById('image-preview5-1')
         ];
-const imagePreviews2 = [
+	const imagePreviews2 = [
             document.getElementById('image-preview1-2'),
             document.getElementById('image-preview2-2'),
             document.getElementById('image-preview3-2'),
@@ -128,28 +127,28 @@ const imagePreviews2 = [
 
         const folderSizes = [3405, 3393, 5427, 5427, 1777];  // 为每个文件夹设置具体的图片数量
 
-// 找到folderSizes中的最大值
-const maxFolderSize = Math.max(...folderSizes);
+	// 找到folderSizes中的最大值
+	const maxFolderSize = Math.max(...folderSizes);
 
         timelines.forEach((timeline, index) => {
-// 根据当前文件夹的大小和最大文件夹的大小计算宽度百分比
-    const widthPercentage = (folderSizes[index] / maxFolderSize) * 100;
+		// 根据当前文件夹的大小和最大文件夹的大小计算宽度百分比
+	    	const widthPercentage = (folderSizes[index] / maxFolderSize) * 100;
 
-    // 为时间轴设置动态宽度
-    //timeline.style.width = `${widthPercentage}%`;
-    //timeline.classList.add('dynamic-width'); // 添加动态宽度类以应用过渡效果
-            timeline.addEventListener('mousemove', (e) => {
-                const rect = timeline.getBoundingClientRect();
-                const mouseX = e.clientX - rect.left;
-                const percentage = mouseX / rect.width;
-                const timestamp = Math.floor(percentage * folderSizes[index]);
-
-                const imageUrl1 = `/mywebsite/ssid${index + 1}/${timestamp}.png`;
-	const imageUrl2 = `/my-website/violin${index + 1}/${timestamp}.png`;
-                imagePreviews1[index].style.backgroundImage = `url(${imageUrl1})`;
-	imagePreviews2[index].style.backgroundImage = `url(${imageUrl2})`;
-            });
+		    // 为时间轴设置动态宽度
+		    //timeline.style.width = `${widthPercentage}%`;
+		    //timeline.classList.add('dynamic-width'); // 添加动态宽度类以应用过渡效果
+	    	timeline.addEventListener('mousemove', (e) => {
+			const rect = timeline.getBoundingClientRect();
+			const mouseX = e.clientX - rect.left;
+			const percentage = mouseX / rect.width;
+			const timestamp = Math.floor(percentage * folderSizes[index]);
+		
+			const imageUrl1 = `/mywebsite/ssid${index + 1}/${timestamp}.png`;
+			const imageUrl2 = `/my-website/violin${index + 1}/${timestamp}.png`;
+	                imagePreviews1[index].style.backgroundImage = `url(${imageUrl1})`;
+			imagePreviews2[index].style.backgroundImage = `url(${imageUrl2})`;
+	        });
         });
-    </script>
+</script>
 </body>
 </html>
